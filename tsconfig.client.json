@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "public/dist",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["client/**/*.tsx", "client/**/*.ts"],
+  "exclude": ["node_modules", "dist", "src/**/*"]
+}
