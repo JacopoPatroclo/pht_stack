@@ -11,7 +11,7 @@ export interface AppConfig {
 }
 
 // Type to describe the options that all the routes will recive
-export type WithRoutesCommonOptions<T = unknown> = T & {
+export type WithRoutesAndPluginsCommonOptions<T = unknown> = T & {
   drizzle: ReturnType<typeof makeDrizzle>;
   env: ReturnType<typeof readEnv>;
 };
@@ -24,16 +24,17 @@ export function build(appOptions: FastifyServerOptions & AppConfig) {
   const app = fastify(opts);
   const drizzle = makeDrizzle(sqlClient);
 
-  // Register all the plugins
-  app.register(autoload, {
-    dir: path.join(__dirname, 'plugins'),
-  });
-
-  // This is the common options that will be passed to all routes
-  const commonOptions: WithRoutesCommonOptions = {
+  // This is the common options that will be passed to all routes and plugins
+  const commonOptions: WithRoutesAndPluginsCommonOptions = {
     drizzle,
     env,
   };
+
+  // Register all the plugins
+  app.register(autoload, {
+    dir: path.join(__dirname, 'plugins'),
+    options: commonOptions,
+  });
 
   // Register all the routes
   app.register(autoload, {
