@@ -1,11 +1,15 @@
 import { MigrationConfig } from 'drizzle-orm/migrator';
 import * as schema from './tables';
 
-// If you need to switch out postgres for another SQL client, you can do so here
-// removing this import and using another client
+// If you need to switch out postgres for another SQL client,
+// you can do so here by updating this import and using another client
 // remember to update the makeSqlClient function to return the new client
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
+
+// Remove this import if you want to use another SQL client
+// remember to delete from the package.json the postgres and pg dependency
+// remember also to update the drizzle.config.ts file
 import postgres from 'postgres';
 
 // Create a new SQL client

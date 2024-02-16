@@ -34,7 +34,7 @@ const ctxServer = await esbuild.context({
   format: 'cjs',
   sourcemap: watch || test,
   tsconfig: test ? 'tsconfig.test.json' : 'tsconfig.app.json',
-  sourceRoot: 'server',
+  sourceRoot: 'src',
 });
 
 // Tailwind command to run in the background to bundle the css
