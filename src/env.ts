@@ -26,7 +26,10 @@ export function readEnv(): Static<typeof envSchema> {
     schema: envSchema,
     expandEnv: true,
     dotenv: {
-      path: join(__dirname, '..', '.env.local'),
+      path: [
+        join(__dirname, '..', '.env.local'),
+        join(__dirname, '..', '.env'),
+      ],
     },
   });
 }
