@@ -1,6 +1,8 @@
 import { exec, execSync } from 'child_process';
 import closeWithGrace from 'close-with-grace';
 
+const watch = process.argv.includes('--watch');
+
 // Stop and restart the Docker containers ensuring an empty database
 execSync('docker-compose down --volumes', { shell: true, stdio: null });
 execSync('docker-compose up -d', { shell: true, stdio: null });
@@ -24,7 +26,10 @@ await new Promise((resolve) => {
 });
 
 // Run the e2e tests
-const cypress = exec('pnpm cypress run', { shell: true, stdio: 'pipe' });
+const cypress = exec(`pnpm cypress ${watch ? 'open' : 'run'}`, {
+  shell: true,
+  stdio: 'pipe',
+});
 
 cypress.stdout.pipe(process.stdout);
 cypress.stderr.pipe(process.stderr);

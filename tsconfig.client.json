@@ -1,12 +1,12 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "public/dist",
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "jsx": null,
+    "jsxFactory": null,
+    "jsxFragmentFactory": null,
+    "plugins": []
   },
   "include": ["client/**/*.tsx", "client/**/*.ts"],
-  "exclude": ["node_modules", "dist", "src/**/*"]
+  "exclude": ["node_modules", "dist", "src", "public"]
 }

@@ -12,6 +12,11 @@ const envSchema = Type.Object({
   PORT: Type.Optional(Type.Number({ default: 3000 })),
   HOST: Type.Optional(Type.String({ default: '0.0.0.0' })),
   DATABASE_URL: Type.String(),
+  COOKIE_SECRET: Type.String(),
+  SESSION_DURATION: Type.Optional(
+    // Default to 7 days
+    Type.Number({ default: 1000 * 60 * 60 * 24 * 7 }),
+  ),
   // Add below your env variables
 });
 

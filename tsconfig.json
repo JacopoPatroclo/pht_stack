@@ -12,6 +12,12 @@
     "jsxFactory": "Html.createElement",
     "jsxFragmentFactory": "Html.Fragment",
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }],
-    "types": ["@kitajs/html/htmx.d.ts"]
-  }
+    "types": ["@kitajs/html/htmx.d.ts", "node"]
+  },
+  "exclude": ["node_modules", "client"],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.test.json" },
+    { "path": "./tsconfig.client.json" }
+  ]
 }

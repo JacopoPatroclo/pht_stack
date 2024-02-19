@@ -44,5 +44,8 @@ export function build(appOptions: FastifyServerOptions & AppConfig) {
     options: commonOptions,
   });
 
+  // health check
+  app.get('/alive', { logLevel: 'silent' }, (_, reply) => reply.send('alive'));
+
   return app;
 }

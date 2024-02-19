@@ -11,12 +11,18 @@ dependencies:
   '@fastify/error':
     specifier: 3.4.1
     version: 3.4.1
+  '@fastify/flash':
+    specifier: 5.1.0
+    version: 5.1.0
   '@fastify/formbody':
     specifier: 7.4.0
     version: 7.4.0
   '@fastify/multipart':
     specifier: 8.1.0
     version: 8.1.0
+  '@fastify/secure-session':
+    specifier: 7.1.0
+    version: 7.1.0
   '@fastify/sensible':
     specifier: 5.5.0
     version: 5.5.0
@@ -68,7 +74,7 @@ devDependencies:
     specifier: 7.0.1
     version: 7.0.1(eslint@8.56.0)(typescript@5.3.3)
   cypress:
-    specifier: ^13.6.4
+    specifier: 13.6.4
     version: 13.6.4
   drizzle-kit:
     specifier: 0.20.14
@@ -843,6 +849,13 @@ packages:
       text-decoding: 1.0.0
     dev: false
 
+  /@fastify/cookie@9.3.1:
+    resolution: {integrity: sha512-h1NAEhB266+ZbZ0e9qUE6NnNR07i7DnNXWG9VbbZ8uC6O/hxHpl+Zoe5sw1yfdZ2U6XhToUGDnzQtWJdCaPwfg==}
+    dependencies:
+      cookie-signature: 1.2.1
+      fastify-plugin: 4.5.1
+    dev: false
+
   /@fastify/deepmerge@1.3.0:
     resolution: {integrity: sha512-J8TOSBq3SoZbDhM9+R/u77hP93gz/rajSA+K2kGyijPpORPWUXHUpTaleoj+92As0S9uPRP7Oi8IqMf0u+ro6A==}
     dev: false
@@ -855,6 +868,12 @@ packages:
     resolution: {integrity: sha512-aZAXGYo6m22Fk1zZzEUKBvut/CIIQe/BapEORnxiD5Qr0kPHqqI69NtEMCme74h+at72sPhbkb4ZrLd1W3KRLA==}
     dependencies:
       fast-json-stringify: 5.12.0
+    dev: false
+
+  /@fastify/flash@5.1.0:
+    resolution: {integrity: sha512-8/MwOWkky0RsSgSVRcpoY8Q+lGj+vx/QF60E0Opp+92KtLFWldr6eWUL+gpGJNmQiodsKCr0osjKIjySuUuM/g==}
+    dependencies:
+      fastify-plugin: 4.5.1
     dev: false
 
   /@fastify/formbody@7.4.0:
@@ -879,6 +898,15 @@ packages:
       fastify-plugin: 4.5.1
       secure-json-parse: 2.7.0
       stream-wormhole: 1.1.0
+    dev: false
+
+  /@fastify/secure-session@7.1.0:
+    resolution: {integrity: sha512-x0ZW57+sf6fQaL05B3n64m7DRe81NAtFAKpCKKuqdX9FDqzOH5uQbfDDfVQy2/qhDn3N343RMlNtY1iQyvvA9A==}
+    hasBin: true
+    dependencies:
+      '@fastify/cookie': 9.3.1
+      fastify-plugin: 4.5.1
+      sodium-native: 4.0.9
     dev: false
 
   /@fastify/send@2.1.0:
@@ -1634,6 +1662,11 @@ packages:
     engines: {node: '>= 0.6'}
     dependencies:
       safe-buffer: 5.2.1
+    dev: false
+
+  /cookie-signature@1.2.1:
+    resolution: {integrity: sha512-78KWk9T26NhzXtuL26cIJ8/qNHANyJ/ZYrmEXFzUmhZdjpBv+DlWlOANRTGBt48YcyslsLrj0bMLFTmXvLRCOw==}
+    engines: {node: '>=6.6.0'}
     dev: false
 
   /cookie@0.5.0:
@@ -3155,6 +3188,11 @@ packages:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: true
 
+  /node-gyp-build@4.8.0:
+    resolution: {integrity: sha512-u6fs2AEUljNho3EYTJNBfImO5QTo/J/1Etd+NVdCj7qWKUSN/bSLkZwhDv7I+w/MSC6qJ4cknepkAYykDdK8og==}
+    hasBin: true
+    dev: false
+
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
@@ -3778,6 +3816,13 @@ packages:
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
     dev: true
+
+  /sodium-native@4.0.9:
+    resolution: {integrity: sha512-nuEaJkwQMjzZOgD6N/yTJAWuzeOq+HKnBR7Qo+geZGorf/AkyBEtwIEjnd2YSs21w/TuFKCgbo2i6j7Uv+kVDQ==}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.8.0
+    dev: false
 
   /sonic-boom@3.8.0:
     resolution: {integrity: sha512-ybz6OYOUjoQQCQ/i4LU8kaToD8ACtYP+Cj5qd2AO36bwbdewxWJ3ArmJ2cr6AvxlL2o0PqnCcPGUgkILbfkaCA==}

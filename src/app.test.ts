@@ -19,6 +19,8 @@ describe('app', () => {
       env: {
         ENVIROMENT: 'test',
         DATABASE_URL: 'not really necessary',
+        COOKIE_SECRET:
+          '677bd4a718ffa6b0d48cb51ea58a3706bcdf27f2f0d8915e21547d99945a74dc',
       },
     });
   });
