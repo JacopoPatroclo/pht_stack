@@ -1,13 +1,18 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "drizzle"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:drizzle/all"
   ],
   "rules": {
     "no-console": 2

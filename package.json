@@ -11,7 +11,6 @@
     "e2e": "node scripts/e2e.mjs",
     "lint": "xss-scan && eslint . --ext .ts,.tsx",
     "typecheck": "tsc -p tsconfig.app.json --noEmit & tsc -p tsconfig.client.json --noEmit",
-    "check": "pnpm typecheck && pnpm test && pnpm audit",
     "gen-session-key": "node scripts/session-key.mjs"
   },
   "keywords": [
@@ -59,6 +58,7 @@
     "drizzle-kit": "0.20.14",
     "esbuild": "0.20.0",
     "eslint": "8.56.0",
+    "eslint-plugin-drizzle": "0.2.3",
     "htmx.org": "1.9.10",
     "pg": "8.11.3",
     "pino-pretty": "10.3.1",
