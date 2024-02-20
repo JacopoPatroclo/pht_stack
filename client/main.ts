@@ -14,6 +14,7 @@ declare global {
 if (process.env.HOT_RELOAD) {
   // Hot reload the server
   let isServerDown = false;
+  // eslint-disable-next-line no-inner-declarations
   function pingServer() {
     fetch('/alive')
       .then((response) => {
