@@ -21,12 +21,9 @@ execSync('pnpm build', { shell: true, stdio: 'inherit', env: process.env });
 // Start the dev server
 const devServer = exec('pnpm start', {
   shell: true,
-  stdio: 'pipe',
+  stdio: 'inherit',
   env: process.env,
 });
-
-devServer.stdout.pipe(process.stdout);
-devServer.stderr.pipe(process.stderr);
 
 // Wait for the dev server to be ready
 await new Promise((resolve) => {
@@ -40,7 +37,7 @@ await new Promise((resolve) => {
 // Run the e2e tests
 const cypress = exec(`pnpm cypress ${watch ? 'open' : 'run'}`, {
   shell: true,
-  stdio: 'pipe',
+  stdio: 'inherit',
   env: process.env,
 });
 
@@ -57,14 +54,16 @@ const timeout = setTimeout(
   10 * 60 * 1000,
 );
 
-cypress.on('exit', () => {
-  // Stop the dev server
+const clgListener = closeWithGrace({ delay: 500 }, () => {
+  cypress.kill();
   devServer.kill();
   clearTimeout(timeout);
 });
 
-closeWithGrace({ delay: 500 }, () => {
-  cypress.kill();
+cypress.on('exit', (code) => {
+  console.log('Tests have finished with code ' + code);
+  // Stop the dev server
   devServer.kill();
   clearTimeout(timeout);
+  clgListener.uninstall();
 });
