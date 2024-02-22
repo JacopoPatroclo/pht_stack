@@ -34,12 +34,24 @@ const cypress = exec(`pnpm cypress ${watch ? 'open' : 'run'}`, {
 cypress.stdout.pipe(process.stdout);
 cypress.stderr.pipe(process.stderr);
 
+const timeout = setTimeout(
+  () => {
+    console.log('Tests have timed out');
+    process.exit(0);
+  },
+  // If 10 minutes have passed, stop the tests
+  // This is useful for CI environments
+  10 * 60 * 1000,
+);
+
 cypress.on('exit', () => {
   // Stop the dev server
   devServer.kill();
+  clearTimeout(timeout);
 });
 
 closeWithGrace({ delay: 500 }, () => {
   cypress.kill();
   devServer.kill();
+  clearTimeout(timeout);
 });

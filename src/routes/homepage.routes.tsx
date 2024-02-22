@@ -10,8 +10,8 @@ export const homepage: FastifyPluginAsyncTypebox<
 > = async (app) => {
   app.get('/', async (request, reply) => {
     const isHtmxRequest = request.headers['hx-request'] === 'true';
-    const hasSuccess = !!reply.flash('upload.success')?.length;
-    const hasError = reply.flash('upload.error');
+    const successMessage = reply.flash('successes.0');
+    const hasError = reply.flash('genericErrors.0');
 
     return reply.html(
       <Layout title="Hello World" isHtmxRequest={isHtmxRequest}>
@@ -32,12 +32,12 @@ export const homepage: FastifyPluginAsyncTypebox<
               <input type="text" name="name" />
             </form>
             <input form="upload-form" type="file" name="somefile" />
-            {hasSuccess && (
+            {successMessage && (
               <div class="bg-green-200 p-3 rounded-md text-green-800">
-                File uploaded successfully
+                {e`${successMessage}`}
               </div>
             )}
-            {!!hasError?.length && (
+            {hasError && (
               <div class="bg-red-200 p-3 rounded-md text-red-800">
                 {e`${hasError}`}
               </div>
@@ -66,14 +66,14 @@ export const homepage: FastifyPluginAsyncTypebox<
         }),
       },
       errorHandler: (error, request, reply) => {
-        request.flash('upload.error', error.message);
-        reply.redirect('/');
+        request.flash('genericErrors', [error.message]);
+        return reply.redirect('/');
       },
     },
     async (request, reply) => {
       // Here you have access to the validated name file
       // and if it's there the file buffer
-      request.flash('upload.success', 'true');
+      request.flash('successes', ['File uploaded successfully']);
       return reply.redirect('/');
     },
   );

@@ -1,9 +1,17 @@
 import fp from 'fastify-plugin';
 import secureSession from '@fastify/secure-session';
-import flash from '@fastify/flash';
-// This is needed because @fastify/flash does not export types by default
-import '@fastify/flash/lib/@types/fastify';
+import flash from 'fastify-better-flash';
 import { WithRoutesAndPluginsCommonOptions } from '../app';
+
+// Declare here the messages that you want to send over the flash
+// library
+declare module 'fastify-better-flash' {
+  export interface FlashSessionType {
+    successes: string[];
+    genericErrors: string[];
+    validations: Record<string, string[]>;
+  }
+}
 
 export default fp(async (fastify, opts: WithRoutesAndPluginsCommonOptions) => {
   await fastify.register(secureSession, {

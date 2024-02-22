@@ -31,6 +31,7 @@ export function Layout(
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+          <link rel="icon" href="/public/logo.svg" />
           <link href="/public/dist/main.css" rel="stylesheet" />
           <script src="/public/dist/main.js" />
           <title>{e`${props.title}`}</title>

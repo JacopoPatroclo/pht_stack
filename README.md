@@ -1,3 +1,5 @@
+![logo](/public/logo.svg)
+
 # PHT Stack
 
 P stands for Postgres, H stands for HTMX, and T stands for Typescript. Fastify is hidden but is there. This is a stack for developing fast web applications.
