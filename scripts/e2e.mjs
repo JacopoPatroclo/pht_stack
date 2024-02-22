@@ -4,14 +4,26 @@ import closeWithGrace from 'close-with-grace';
 const watch = process.argv.includes('--watch');
 
 // Stop and restart the Docker containers ensuring an empty database
-execSync('docker-compose down --volumes', { shell: true, stdio: null });
-execSync('docker-compose up -d', { shell: true, stdio: null });
+execSync('docker-compose down --volumes', {
+  shell: true,
+  stdio: null,
+  env: process.env,
+});
+execSync('docker-compose up -d', {
+  shell: true,
+  stdio: null,
+  env: process.env,
+});
 
 // Build the app
-execSync('pnpm build', { shell: true, stdio: 'inherit' });
+execSync('pnpm build', { shell: true, stdio: 'inherit', env: process.env });
 
 // Start the dev server
-const devServer = exec('pnpm start', { shell: true, stdio: 'pipe' });
+const devServer = exec('pnpm start', {
+  shell: true,
+  stdio: 'pipe',
+  env: process.env,
+});
 
 devServer.stdout.pipe(process.stdout);
 devServer.stderr.pipe(process.stderr);
@@ -29,6 +41,7 @@ await new Promise((resolve) => {
 const cypress = exec(`pnpm cypress ${watch ? 'open' : 'run'}`, {
   shell: true,
   stdio: 'pipe',
+  env: process.env,
 });
 
 cypress.stdout.pipe(process.stdout);
