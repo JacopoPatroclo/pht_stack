@@ -5,13 +5,13 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "node scripts/build.mjs",
-    "dev": "node scripts/build.mjs --dev",
-    "test": "node scripts/build.mjs --test",
-    "e2e": "node scripts/e2e.mjs",
+    "build": "sp",
+    "dev": "sp --dev",
+    "test": "sp --test",
+    "e2e": "spe",
     "lint": "xss-scan && eslint . --ext .ts,.tsx",
     "typecheck": "tsc -p tsconfig.app.json --noEmit & tsc -p tsconfig.client.json --noEmit",
-    "gen-session-key": "node scripts/session-key.mjs"
+    "gen-session-key": "spk .env.local"
   },
   "keywords": [
     "htmx",
@@ -63,6 +63,7 @@
     "pg": "8.11.3",
     "pino-pretty": "10.3.1",
     "prettier": "3.2.5",
+    "slim-pack": "0.0.3",
     "tailwindcss": "3.4.1",
     "typescript": "5.3.3"
   }
