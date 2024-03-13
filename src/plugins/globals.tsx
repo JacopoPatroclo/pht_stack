@@ -17,6 +17,10 @@ export default fp(async (fastify, opts: WithRoutesAndPluginsCommonOptions) => {
     attachFieldsToBody: 'keyValues',
     // Set here the limits for the file size and the number of fields
     // limits: {}
+    limits: {
+      // 500MB
+      fileSize: 500 * 1024 * 1024,
+    },
   });
 
   // Global error handler, we want to return alaways a 200 status code and html

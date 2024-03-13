@@ -11,7 +11,10 @@ const env = readEnv();
 const sqlClient = makeSqlClient(env.DATABASE_URL);
 
 // Setup the logger roules
-let logger: FastifyServerOptions['logger'] = true;
+let logger: FastifyServerOptions['logger'] = {
+  level: 'error',
+};
+
 if (process.stdin.isTTY) {
   // If the process is running in a TTY (terminal) then use the pretty logger
   logger = {

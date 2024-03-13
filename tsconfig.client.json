@@ -5,7 +5,8 @@
     "jsx": null,
     "jsxFactory": null,
     "jsxFragmentFactory": null,
-    "plugins": []
+    "plugins": [],
+    "composite": true
   },
   "include": ["client/**/*.tsx", "client/**/*.ts"],
   "exclude": ["node_modules", "dist", "src", "public"]

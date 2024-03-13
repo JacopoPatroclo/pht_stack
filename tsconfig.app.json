@@ -8,5 +8,8 @@
     "public",
     "src/**/*.test.tsx",
     "src/**/*.test.ts"
-  ]
+  ],
+  "compilerOptions": {
+    "composite": true
+  }
 }

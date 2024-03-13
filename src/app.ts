@@ -2,7 +2,7 @@ import '@kitajs/html/register';
 import fastify, { FastifyServerOptions } from 'fastify';
 import autoload from '@fastify/autoload';
 import path from 'path';
-import { makeDrizzle, makeSqlClient } from './database';
+import { makeSqlClient } from './database';
 import { readEnv } from './env';
 
 export interface AppConfig {
@@ -12,7 +12,7 @@ export interface AppConfig {
 
 // Type to describe the options that all the routes will recive
 export type WithRoutesAndPluginsCommonOptions<T = unknown> = T & {
-  drizzle: ReturnType<typeof makeDrizzle>;
+  sql: ReturnType<typeof makeSqlClient>;
   env: ReturnType<typeof readEnv>;
 };
 
@@ -22,11 +22,10 @@ export type WithRoutesAndPluginsCommonOptions<T = unknown> = T & {
 export function build(appOptions: FastifyServerOptions & AppConfig) {
   const { sqlClient, env, ...opts } = appOptions;
   const app = fastify(opts);
-  const drizzle = makeDrizzle(sqlClient);
 
   // This is the common options that will be passed to all routes and plugins
   const commonOptions: WithRoutesAndPluginsCommonOptions = {
-    drizzle,
+    sql: sqlClient,
     env,
   };
 
