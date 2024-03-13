@@ -94,3 +94,10 @@ __pycache__
 # Dist files
 dist/
 public/dist/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/reports/
+cypress/coverage/
+cypress/downloads/

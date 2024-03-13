@@ -5,7 +5,12 @@ import type { FastifyInstance } from 'fastify';
 import type { makeSqlClient } from './database';
 
 // Here you can mock the Sql client as you like
-const mockSqlClient = {};
+const mockSqlClient = {
+  options: {
+    parsers: {},
+    serializers: {},
+  },
+};
 
 // This is an example test
 // you can test the all application if you like
