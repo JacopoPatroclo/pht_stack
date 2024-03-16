@@ -49,11 +49,10 @@ jobs:
         with:
           version: latest
 
-      - name: Setup node and restore cached dependencies
+      - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
       - name: Install packages
         run: pnpm install --frozen-lockfile
