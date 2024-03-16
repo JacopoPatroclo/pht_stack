@@ -1,7 +1,7 @@
 import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { Type } from '@sinclair/typebox';
-import { Layout } from '../components';
-import { WithRoutesAndPluginsCommonOptions } from '../app';
+import { Layout } from '../../components';
+import { WithRoutesAndPluginsCommonOptions } from '../../app';
 import { e } from '@kitajs/html';
 
 // You can delete this, it's just an example
@@ -9,7 +9,7 @@ export const homepage: FastifyPluginAsyncTypebox<
   WithRoutesAndPluginsCommonOptions
 > = async (app) => {
   app.get('/', async (request, reply) => {
-    const isHtmxRequest = request.headers['hx-request'] === 'true';
+    const isHtmxRequest = request.isHtmx();
     const successMessage = reply.flash('successes.0');
     const hasError = reply.flash('genericErrors.0');
 

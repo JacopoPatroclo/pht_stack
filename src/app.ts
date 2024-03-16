@@ -35,12 +35,13 @@ export function build(appOptions: FastifyServerOptions & AppConfig) {
     options: commonOptions,
   });
 
-  // Register all the routes
+  // Register all the routes files in the modules folder
   app.register(autoload, {
-    dir: path.join(__dirname, 'routes'),
+    dir: path.join(__dirname, 'modules'),
     // Pick up only the files that ends with .route.js
     matchFilter: /^.+.routes.js$/,
     options: commonOptions,
+    dirNameRoutePrefix: false,
   });
 
   // health check

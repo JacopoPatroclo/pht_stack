@@ -13,6 +13,11 @@ declare module 'fastify-better-flash' {
   }
 }
 
+/**
+ * This plugin will add the following plugins:
+ * - @fastify/secure-session
+ * - fastify-better-flash
+ */
 export default fp(async (fastify, opts: WithRoutesAndPluginsCommonOptions) => {
   await fastify.register(secureSession, {
     key: Buffer.from(opts.env.COOKIE_SECRET, 'hex'),

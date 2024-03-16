@@ -45,7 +45,7 @@ and you should have a running server at `http://localhost:3000` serving some htm
   - `components` contains the components that are used globally
   - `database` contains the database connection and the drizzle tables definitions
   - `plugins` contains the plugins that are used globally (registered automatically)
-  - `routes` contains the routes files (registered automatically)
+  - `modules` contains the modules that will contain all the business logic of your application. Every file in this directory that ends with `.routes.tsx` or `.routes.ts` will be registered automatically.
   - `env.ts` validate and expose environment variables
   - `app.ts` is the file that creates the server (see builder pattern in Fastify documentation)
   - `index.ts` is the entry point of the server
