@@ -4,14 +4,76 @@ import { Layout } from '../../components';
 import { WithRoutesAndPluginsCommonOptions } from '../../app';
 import { e } from '@kitajs/html';
 
+function MessagesComponent(props: {
+  hasError?: string;
+  successMessage?: string;
+}) {
+  return (
+    <div id="errors-container">
+      {props.successMessage && (
+        <div class="bg-green-200 p-3 rounded-md text-green-800">
+          {e`${props.successMessage}`}
+        </div>
+      )}
+      {props.hasError && (
+        <div class="bg-red-200 p-3 rounded-md text-red-800">
+          {e`${props.hasError}`}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FormComponent() {
+  return (
+    <form
+      id="upload-form"
+      hx-swap-oob="#upload-form"
+      hx-select="#errors-container"
+      hx-target="#errors-container"
+      hx-swap="outerHTML"
+      hx-post="/upload"
+      enctype="multipart/form-data"
+      class="flex flex-col gap-3"
+    >
+      <label for="name" class="text-sm text-gray-700">
+        Name
+      </label>
+      <input
+        id="name-input"
+        hx-swap-oob="#name-input"
+        type="text"
+        name="name"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      />
+      <input
+        id="file-input"
+        hx-swap-oob="#file-input"
+        class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+        form="upload-form"
+        type="file"
+        name="somefile"
+      />
+    </form>
+  );
+}
+
+function CountComponent(props: { submitCount: number }) {
+  return (
+    <p id="submit-count" hx-swap-oob="#submit-count">
+      Successful submit Count {props.submitCount}
+    </p>
+  );
+}
+
+let submitCount = 0;
+
 // You can delete this, it's just an example
 export const homepage: FastifyPluginAsyncTypebox<
   WithRoutesAndPluginsCommonOptions
 > = async (app) => {
   app.get('/', async (request, reply) => {
     const isHtmxRequest = request.isHtmx();
-    const successMessage = reply.flash('successes.0');
-    const hasError = reply.flash('genericErrors.0');
 
     return reply.html(
       <Layout title="PHT Stack" isHtmxRequest={isHtmxRequest}>
@@ -104,41 +166,12 @@ export const homepage: FastifyPluginAsyncTypebox<
               </a>
             </li>
           </ul>
-          <p class="text-lg text-blue-900">HERE A FORM EXAMPLE</p>
-          <div id="upload-for-container" class="flex flex-col gap-3">
-            <form
-              id="upload-form"
-              hx-select="#upload-for-container"
-              hx-target="#upload-for-container"
-              hx-swap="outerHTML"
-              hx-post="/upload"
-              enctype="multipart/form-data"
-            >
-              <label for="name" class="text-sm mr-2 text-gray-700">
-                Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              />
-            </form>
-            <input
-              class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
-              form="upload-form"
-              type="file"
-              name="somefile"
-            />
-            {successMessage && (
-              <div class="bg-green-200 p-3 rounded-md text-green-800">
-                {e`${successMessage}`}
-              </div>
-            )}
-            {hasError && (
-              <div class="bg-red-200 p-3 rounded-md text-red-800">
-                {e`${hasError}`}
-              </div>
-            )}
+          <p class="text-lg text-blue-900">
+            HERE A FORM EXAMPLE THAT'S USE OOB
+          </p>
+          <div class="flex flex-col gap-3">
+            <FormComponent />
+            <MessagesComponent />
             <button
               form="upload-form"
               class="bg-teal-500 rounded-md text-white px-3 py-1 hover:bg-teal-600 transition-colors mr-auto"
@@ -147,6 +180,7 @@ export const homepage: FastifyPluginAsyncTypebox<
               Submit
             </button>
           </div>
+          <CountComponent submitCount={submitCount} />
         </div>
       </Layout>,
     );
@@ -163,15 +197,27 @@ export const homepage: FastifyPluginAsyncTypebox<
         }),
       },
       errorHandler: (error, request, reply) => {
-        request.flash('genericErrors', [error.message]);
-        return reply.redirect('/');
+        return reply.status(422).html(
+          <>
+            {/* Show error messages */}
+            <MessagesComponent hasError={error.message} />
+          </>,
+        );
       },
     },
     async (request, reply) => {
       // Here you have access to the validated name file
       // and if it's there the file buffer
-      request.flash('successes', ['File uploaded successfully']);
-      return reply.redirect('/');
+      return reply.html(
+        <>
+          {/* Show success messages */}
+          <MessagesComponent successMessage="File uploaded successfully" />
+          {/* Increase the submit count */}
+          <CountComponent submitCount={++submitCount} />
+          {/* We want to reset the form state */}
+          <FormComponent />
+        </>,
+      );
     },
   );
 };
